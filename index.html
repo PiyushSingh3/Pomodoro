@@ -1,57 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POMODORO</title>
+	<title>Pomodoro</title>
     <!---font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
     
-
     <!---icons-->
     <script src="https://kit.fontawesome.com/3aa164e975.js" crossorigin="anonymous"></script>
 
-    <!---css-->
-    <link rel= "stylesheet" href="./style.css">
-
-
+	<link rel="stylesheet" type="text/css" href="style.css">
+	
 </head>
 <body>
-    <section>
-        <div class="container">
-            <h1>Pomodoro</h1>
-            <p>A time management technique to improve productivity.</p>
-            <div class="painel">
-                <p id="work">work</p>
-                <p id="break">break</p>
-            </div>
-
-            <div class="timer">
-                <div class="circle">
-                    <div class="time">
-                        <p id="minuts"></p>
-                        <p>:</p>
-                        <p id="seconds"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="controls">
-                <button id = "start" onclick="start()"><i class="fa-solid fa-play"></i> </button>
-                <a id = "reset" href="/"> <i class="fa-solid fa-arrow-rotate-right"></i> </a> 
-                <a id="github-icon" href="https://github.com/PiyushSingh3"> <i class="fa-brands fa-github"></i></a>
-                <div class="toggle">
-                    <input type="checkbox" id="toggle-mode">
-                    <label class="toggle-label" for="toggle-mode"></label>
-                </div>                  
-            </div>
-        </div>
-    </section>
-        <!---script-->
-        <script src="./script.js"></script>
-    
+	<audio id="alarm" src="C:/Users/Piyush Singh/Documents/Pomodoro/blips.mp3"></audio>
+	
+	<div class="container">
+        <h1>Pomodoro</h1>
+        <p>A time management technique to improve productivity and focus.</p>
+		<div class="clock">
+			<div class="flip-card">
+				<div class="flip-card-inner">
+					<div class="flip-card-front">
+						<div class="digit minutes"></div>
+						<div class="digit seconds"></div>
+					</div>
+					<div class="flip-card-back">
+						<div class="digit minutes"></div>
+						<div class="digit seconds"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="controls">
+			<button id="start">Start</button>
+			<button id="pause">Pause</button>
+			<button id="reset">Reset</button>
+		</div>
+	</div>
+	<!-- <div class="toggle-switch">
+		<label class="switch">
+			<input type="checkbox" id="theme-toggle">
+			<span class="slider round"></span>
+		</label>
+	</div> -->
+	<a id="github-icon" href="https://github.com/PiyushSingh3"> <i class="fa-brands fa-github"></i></a>
+	<script src="script.js"></script>
 </body>
 </html>

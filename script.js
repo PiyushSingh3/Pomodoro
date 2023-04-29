@@ -1,89 +1,75 @@
-// Variables
-let worktitle = document.getElementById("work");
-let breaktitle = document.getElementById("break");
+const minutes = document.querySelector('.minutes');
+const seconds = document.querySelector('.seconds');
+const startButton = document.querySelector('#start');
+const pauseButton = document.querySelector('#pause');
+const resetButton = document.querySelector('#reset');
+const themeToggle = document.querySelector('#theme-toggle');
 
-let worktime = 25;
-let breaktime = 5;
+let intervalId;
+let isRunning = false;
+let timeRemaining = 3; // 25 minutes in seconds = 1500
 
-// Display
-window.onload = () => {
-    document.getElementById("minuts").innerHTML = worktime;
-    document.getElementById("seconds").innerHTML = "00";
-
-    worktitle.classList.add("active");
-};
-
-// Start Timer
-function start() {
-    // Change button
-    document.getElementById("start").style.display = "none";
-    document.getElementById("reset").style.display = "block";
-
-    // Reset time
-    let countdownTime = (worktime * 60) - 1;
-    let breakCount = 0;
-
-    // Countdown
-    let intervalID = setInterval(() => {
-        if (countdownTime === -1) {
-            clearInterval(intervalID);
-            // Start break or continue work
-            if (breakCount % 2 === 0) {
-                worktitle.classList.remove("active");
-                breaktitle.classList.add("active");
-                countdownTime = breaktime * 60;
-                updateDisplay(breaktime, 0);
-            } else {
-                breaktitle.classList.remove("active");
-                worktitle.classList.add("active");
-                countdownTime = worktime * 60;
-                updateDisplay(worktime, 0);
-            }
-            breakCount++;
-        } else {
-            let minutes = Math.floor(countdownTime / 60);
-            let secondsLeft = countdownTime % 60;
-            updateDisplay(minutes, secondsLeft);
-            countdownTime--;
-            if (countdownTime < 0) {
-                // call updateDisplay one more time with 0 minutes and 0 seconds
-                updateDisplay(0, 0);
-            }
-        }
-    }, 1000);
-
-    // Call updateDisplay with 0 minutes and 0 seconds at the end of the timer
-    setTimeout(() => {
-        updateDisplay(0, 0);
-    }, (worktime + breaktime) * 60 * 1000);
-
-    // Helper function to update display
-    function updateDisplay(minutes, secondsLeft) {
-        document.getElementById("minuts").innerHTML = minutes;
-        document.getElementById("seconds").innerHTML = secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft;
-    }
+function updateClock() {
+  const min = Math.floor(timeRemaining / 60);
+  const sec = timeRemaining % 60;
+  minutes.textContent = min < 10 ? '0' + min : min;
+  seconds.textContent = sec < 10 ? '0' + sec : sec;
 }
 
-// Toggle Mode
-let toggle = document.getElementById("toggle-mode");
+function startTimer() {
+  if (isRunning) return;
 
-toggle.addEventListener("click", function() {
-    let body = document.querySelector("body");
-    let controls = document.querySelector(".controls");
-    let timer = document.querySelector(".timer");
-    let painel = document.querySelector(".painel");
+  isRunning = true;
+  startButton.disabled = true;
+  pauseButton.disabled = false;
 
-    if (this.checked) {
-        // Dark mode
-        body.classList.add("dark-mode");
-        controls.style.backgroundColor = "var(--color-primery)";
-        timer.style.backgroundColor = "var(--color-primery)";
-        painel.style.backgroundColor = "var(--color-font)";
-    } else {
-        // Light mode
-        body.classList.remove("dark-mode");
-        controls.style.backgroundColor = "transparent";
-        timer.style.backgroundColor = "var(--color-secondary)";
-        painel.style.backgroundColor = "transparent";
+  intervalId = setInterval(() => {
+    timeRemaining--;
+    updateClock();
+
+    if (timeRemaining === 0) {
+      clearInterval(intervalId);
+      isRunning = false;
+      startButton.disabled = false;
+      pauseButton.disabled = true;
+      timeRemaining = 1500;
+
+      // Play alarm sound
+      const alarmSound = document.getElementById('alarm');
+      alarmSound.play();
     }
+  }, 1000);
+}
+
+function pauseTimer() {
+  if (!isRunning) return;
+
+  isRunning = false;
+  startButton.disabled = false;
+  pauseButton.disabled = true;
+
+  clearInterval(intervalId);
+}
+
+function resetTimer() {
+  isRunning = false;
+  startButton.disabled = false;
+  pauseButton.disabled = true;
+  clearInterval(intervalId);
+  timeRemaining = 1500;
+  updateClock();
+
+    // Stop alarm sound
+    const alarmSound = document.getElementById('alarm');
+    alarmSound.pause();
+    alarmSound.currentTime = 0;
+}
+
+startButton.addEventListener('click', startTimer);
+pauseButton.addEventListener('click', pauseTimer);
+resetButton.addEventListener('click', resetTimer);
+
+themeToggle.addEventListener('change', () => {
+  document.body.classList.toggle('dark-theme');
 });
+
