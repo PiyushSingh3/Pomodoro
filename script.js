@@ -7,7 +7,7 @@ const themeToggle = document.querySelector('#theme-toggle');
 
 let intervalId;
 let isRunning = false;
-let timeRemaining = 3; // 25 minutes in seconds = 1500
+let timeRemaining = 1500; // 25 minutes in seconds = 1500
 
 function updateClock() {
   const min = Math.floor(timeRemaining / 60);
