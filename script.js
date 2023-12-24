@@ -16,6 +16,9 @@ function updateClock() {
   seconds.textContent = sec < 10 ? '0' + sec : sec;
 }
 
+// Call updateClock here to display the initial time
+updateClock();
+
 function startTimer() {
   if (isRunning) return;
 
