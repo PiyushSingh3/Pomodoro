@@ -1,51 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Pomodoro</title>
-    <!---font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
-    
-    <!---icons-->
-    <script src="https://kit.fontawesome.com/3aa164e975.js" crossorigin="anonymous"></script>
-
-	<link rel="stylesheet" type="text/css" href="style.css">
-	
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minimal Pomodoro</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-	<audio id="alarm" src="https://github.com/PiyushSingh3/Pomodoro/raw/main/blips.mp3"></audio>
-	
-	<div class="container">
-        <h1 style="margin-bottom: 20px;">Pomodoro</h1>
-        <p>A time management technique to improve productivity and focus.</p>
-		<div class="clock" style="margin-top: 20px;">
-			<div class="flip-card">
-				<div class="flip-card-inner">
-					<div class="flip-card-front">
-						<div class="digit minutes"></div>
-						<div class="digit seconds"></div>
-					</div>
-					<div class="flip-card-back">
-						<div class="digit minutes"></div>
-						<div class="digit seconds"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="controls">
-			<button id="start">Start</button>
-			<button id="pause">Pause</button>
-			<button id="reset">Reset</button>
-		</div>
-	</div>
-	<!-- <div class="toggle-switch">
-		<label class="switch">
-			<input type="checkbox" id="theme-toggle">
-			<span class="slider round"></span>
-		</label>
-	</div> -->
-	<a id="github-icon" href="https://github.com/PiyushSingh3"> <i class="fa-brands fa-github"></i></a>
-	<script src="script.js"></script>
+
+  <div class="timer">
+    <div class="card" id="minutes">25</div>
+    <div class="card" id="seconds">00</div>
+  </div>
+
+  <div class="controls">
+    <button onclick="startTimer()">Start</button>
+    <button onclick="pauseTimer()">Pause</button>
+    <button onclick="resetTimer()">Reset</button>
+    <button id="muteButton">🔇 Mute</button>
+  </div>
+
+  <div class="settings">
+    <div>
+      Focus:
+      <input type="number" id="focusInput" min="1">
+      min
+    </div>
+  </div>
+
+  <!-- sessions counter removed -->
+
+  <script src="script.js"></script>
 </body>
 </html>
