@@ -1,168 +1,128 @@
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
-
 body {
-	background-color: #000000;
-	color: #fff;
-	font-family: Poppins, sans-serif;
-	font-size: 20px;
+  margin: 0;
+  /* gradient plus dot grid overlay using layered backgrounds */
+  background:
+    /* dot grid */
+    radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px) 0 0 / 20px 20px,
+    /* main gradient */
+    linear-gradient(135deg, #111 0%, #000 100%);
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-h1 {
-    margin-bottom: 20px;
+.timer {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 100vh;
+.card {
+  /* use viewport width so cards shrink on small screens, but cap at fixed size */
+  width: min(40vw, 180px);
+  /* maintain aspect ratio near 0.82 */
+  aspect-ratio: 0.82;
+  /* match body gradient direction with a slightly lighter tone for contrast */
+  background: linear-gradient(135deg, #333 0%, #111 100%);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 120px;
+  line-height: 1;
+  font-weight: 600;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  perspective: 1000px;
+  overflow: hidden;
 }
 
-.clock {
-	margin-top: 20px;
-	margin-bottom: 30px;
+.card::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #000;
+  top: 50%;
+  left: 0;
 }
 
-.flip-card {
-	position: relative;
-	width: 150px;
-	height: 150px;
-	perspective: 200px;
+.flip {
+  animation: flip 0.6s ease-in-out;
 }
 
-.flip-card-inner {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	transform-style: preserve-3d;
-	transition: transform 0.5s;
-}
-
-/* .flip-card:hover .flip-card-inner {
-	transform: rotateY(180deg);
-} */
-
-.flip-card-front, .flip-card-back {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	backface-visibility: hidden;
-	display: flex;
-	flex-direction: column; /* Added */
-	align-items: center; /* Added */
-	justify-content: center; /* Added */
-	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
-	border-radius: 5px;
-}
-
-.flip-card-front {
-	background-color: #333;
-	transform: rotateY(0deg);
-}
-
-.flip-card-back {
-	background-color: #444;
-	transform: rotateY(180deg);
-}
-
-.digit {
-	font-size: 50px;
-	line-height: 60px;
-	font-weight: bold;
-	text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-}
-
-.minutes {
-	margin-right: 5px;
+@keyframes flip {
+  0%   { transform: rotateX(0deg); }
+  50%  { transform: rotateX(-90deg); }
+  100% { transform: rotateX(0deg); }
 }
 
 .controls {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-family: Poppins, sans-serif;
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
 }
 
 button {
-	background-color: #444;
-	border: none;
-	color: #fff;
-	padding: 10px 20px;
-	margin: 0 10px;
-	border-radius: 5px;
-	cursor: pointer;
-	transition: background-color 0.2s;
+  background: #111;
+  border: 1px solid #222;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 button:hover {
-	background-color: #555;
+  background: #222;
 }
 
-.toggle-switch {
-	position: absolute;
-	top: 20px;
-	right: 20px;
+.settings {
+  margin-top: 30px;
+  display: flex;
+  gap: 30px;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
-#github-icon {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    position: absolute;
-    font-size: 24px;
-    color: #ffffff;
+.settings input {
+  width: 60px;
+  background: #111;
+  border: 1px solid #222;
+  color: white;
+  padding: 5px;
+  border-radius: 6px;
+  text-align: center;
 }
 
-/* #github-icon i {
-    font-size: 24px;
-} */
-
-.switch input {
-	display: none;
+.mode {
+  margin-top: 20px;
+  opacity: 0.7;
+  font-size: 14px;
 }
 
-.slider {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #ccc;
-	transition: 0.2s;
-	border-radius: 34px;
+/* responsive tweaks */
+@media (max-width: 600px) {
+  .card {
+    font-size: 8vw; /* scale text with viewport on small devices */
+  }
+  .controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+  button {
+    width: 80%;
+    max-width: 200px;
+  }
+  .settings {
+    flex-direction: column;
+    gap: 15px;
+  }
 }
 
-.slider:before {
-	position: absolute;
-	content: "";
-	height: 26px;
-	width: 26px;
-	left: 4px;
-	bottom: 4px;
-	background-color: #fff;
-	transition: 0.2s;
-	border-radius: 50%;
-}
-
-input:checked + .slider {
-	background-color: #2196F3;
-}
-
-input:focus + .slider {
-	box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-	transform: translateX(26px);
-}
-
-.slider.round {
-	border-radius: 34px;
-}
+/* sessions counter gone, rule removed */
